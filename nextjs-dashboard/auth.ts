@@ -25,6 +25,11 @@ export const { auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       // signIn functionality
+      name: "Credentials",
+      credentials: {
+        email: { label: "email", type: "text" },
+        password: { label: "password", type: "password" },
+      },
       async authorize(credentials) {
         const parseCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
@@ -43,4 +48,5 @@ export const { auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  secret: process.env.AUTH_SECRET,
 });
